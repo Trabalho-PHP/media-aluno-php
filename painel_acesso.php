@@ -1,7 +1,7 @@
 
 <?php
     session_start();
-    include 'conexaologin.php';
+    include 'conexao_login.php';
     if(isset($_POST["nome"]) && isset($_POST["matricula"]) && isset($_POST["nota1"]) && isset($_POST["nota2"])) {
         $nome = $mysqli->real_escape_string($_POST["nome"]);
         $matricula = $mysqli->real_escape_string($_POST["matricula"]);
