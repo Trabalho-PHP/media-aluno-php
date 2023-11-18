@@ -1,5 +1,5 @@
 <?php
-include 'conexaologin.php';
+include 'conexao_login.php';
 session_start();
 
 if(isset($_POST["nome"]) && isset($_POST["email"]) && isset($_POST["senha"])) {
@@ -41,7 +41,7 @@ $mysqli->close();
     </head>
     <body>
     <h1>Cadastro de novo usuário</h1>
-        <form action="" method="post">
+        <form id="userData" action="" method="post">
             <label for="nome">Nome:</label>
             <input type="text" name="nome" placeholder="Seu nome aqui"><br><br>
             <label for="email" >E-mail:</label>
@@ -51,5 +51,6 @@ $mysqli->close();
             <button type="submit">criar conta</button>
 
         </form>
+        <script src="validacoesCadastroUser.js"></script>
     </body>
     </html>
