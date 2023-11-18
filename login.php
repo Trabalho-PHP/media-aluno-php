@@ -1,5 +1,5 @@
 <?php
-include("conexaologin.php");
+include("conexao_login.php");
 
 if(isset($_POST["email"]) || isset($_POST["senha"])) {
     if(strlen($_POST["email"]) == 0) {
@@ -28,7 +28,7 @@ if(isset($_POST["email"]) || isset($_POST["senha"])) {
             $_SESSION["id"] = $usuario["id"];
             $_SESSION["name"] = $usuario["nome"];
 
-            header("Location: painelacesso.php");
+            header("Location: painel_acesso.php");
 
         }
         else {

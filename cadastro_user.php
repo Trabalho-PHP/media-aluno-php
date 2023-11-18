@@ -1,5 +1,5 @@
 <?php
-include 'conexaologin.php';
+include 'conexao_login.php';
 session_start();
 
 if(isset($_POST["nome"]) && isset($_POST["email"]) && isset($_POST["senha"])) {
