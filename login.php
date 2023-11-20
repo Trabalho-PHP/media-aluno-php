@@ -2,10 +2,10 @@
 include("conexao_login.php");
 
 if(isset($_POST["email"]) || isset($_POST["senha"])) {
-    if(strlen($_POST["email"]) == 0) {
+    if(empty($_POST["email"])) {
         echo "Atenção: Insira seu E-mail!";
     }
-    else if(strlen($_POST["senha"]) == 0) {     //lembrar de adicionar excessão caso a senha inserida for numérica*
+    else if(empty($_POST["senha"])) {     //lembrar de adicionar excessão caso a senha inserida for numérica*
         echo "Atenção: Insira sua senha!";
     }
     else { //se email e senha estiverem corretos:
