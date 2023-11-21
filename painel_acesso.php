@@ -61,7 +61,7 @@
             <input type="number" name="nota1" step="0.1" required><br><br>
             <label for="nota2">Nota 2:</label>
             <input type="number" name="nota2" step="0.1" required><br><br>
-            <button type="submit">Cadastrar </button>
+            <button type="submit">Cadastrar</button>
         </form>
         <h1>tabela de alunos cadastrados</h1> <!-- será gerada com JS -->
 

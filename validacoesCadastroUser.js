@@ -1,7 +1,7 @@
 let input_nome = document.querySelector("#nome");
 let input_email = document.querySelector("#email");
 let input_senha = document.querySelector("#senha");
-let form_data = document.querySelector("#userData");
+let userData = document.querySelector("#userData");
 
 let emailRegex = /\S+@\S+\.\S+/;
 
@@ -19,13 +19,6 @@ userData.addEventListener("submit", (event)=>{
             text: "Informe um email válido"
         })
           event.preventDefault();
-    }else if(isNaN(input_nota1.value)){
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: "Informe um número válido"
-        })
-        event.preventDefault();
     }
 });
 
