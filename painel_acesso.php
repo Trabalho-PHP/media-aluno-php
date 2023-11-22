@@ -1,4 +1,3 @@
-
 <?php
     session_start();
     include 'conexao_login.php';
@@ -22,7 +21,38 @@
     }else{
         echo "Preencha todos os campos.";
     }
+    
+
+    //busca de aluno (teste)
+    $conn = new mysqli("localhost", "root", "", "login");
+    if(isset($_POST["nome"])) {
+        if(empty($_POST["nome"])) {
+            echo "Atenção: Insira o nome do aluno que deseja buscar!";
+        }
+    }else { 
+
+        $nome = $mysqli->real_escape_string($_POST["nome"]);
+        $sql_code = "SELECT * FROM alunos WHERE nome = '$nome'";
+        $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->connect_error);
+
+        $quantidade = $sql_query->num_rows;
+
+        if ($quantidade > 0) {
+            // Exibe as informações do aluno
+            while ($row = $result->fetch_assoc()) {
+                echo "Nome: " . $row["nome"] . "<br>";
+                echo "Matrícula: " . $row["matricula"] . "<br>";
+                echo "nota 1: " . $row["nota1"] . "<br>";
+                echo "nota 2: " . $row["nota2"] . "<br>";
+
+            }
+        }else{
+            echo "nenhum aluno encontrado";
+
+        }
+    }
     $mysqli->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -31,27 +61,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">          
+    <link rel="stylesheet" href="estilo_tabela.css">
     <title>Área de acesso</title>
 </head>
 <body>
     <h3>Bem vindo, <?php echo isset($_SESSION["name"]) ? $_SESSION["name"] : "Usuário"; ?></h3> <!-- parte bonitinha de boas vindas no topo -->
-    
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilo_tabela.css">
-    <title>Cadastro de Aluno</title>
-    </head>
-    <body>
-
-        <h1>Cadastro de Aluno</h1>
+    <h1>Cadastro de Aluno</h1>
         <form action="" method="post" id="cadastroaluno">
             <label for="nome">Nome:</label>
             <input type="text" name="nome" id="nome" required><br><br>
@@ -112,4 +127,3 @@
         </script>
     </body>
 </html>
-
