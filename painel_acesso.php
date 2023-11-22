@@ -54,17 +54,22 @@
         <h1>Cadastro de Aluno</h1>
         <form action="" method="post" id="cadastroaluno">
             <label for="nome">Nome:</label>
-            <input type="text" name="nome" required><br><br>
+            <input type="text" name="nome" id="nome" required><br><br>
             <label for="matricula">Matrícula:</label>
-            <input type="text" name="matricula" required><br><br>
+            <input type="text" name="matricula" id="matricula" required><br><br>
             <label for="nota1">Nota 1:</label>
-            <input type="number" name="nota1" step="0.1" required><br><br>
+            <input type="number" name="nota1" step="0.1" id="nota1" required><br><br>
             <label for="nota2">Nota 2:</label>
-            <input type="number" name="nota2" step="0.1" required><br><br>
+            <input type="number" name="nota2" step="0.1" id="nota2" required><br><br>
             <button type="submit">Cadastrar</button>
         </form>
-        <h1>tabela de alunos cadastrados</h1> <!-- será gerada com JS -->
-
+        <h1>Tabela de alunos cadastrados</h1> <!-- será gerada com JS -->
+        <h3>Buscar aluno</h3>
+        <form action="" method="post" id="busca">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" placeholder="nome do aluno" required><br><br>
+            <button type="submit">Pesquisar</button>
+        </form>
         <table id="Alunos">
             <thead>
                 <tr>
@@ -82,22 +87,27 @@
             document.getElementById("cadastroaluno").addEventListener("submit", function(event) {
                 event.preventDefault(); 
                 // Exemplo: Adicionando uma linha à tabela com dados do formulário
-                var nome = document.querySelector("input[name='nome']").value;
-                var matricula = document.querySelector("input[name='matricula']").value;
-                var nota1 = document.querySelector("input[name='nota1']").value;
-                var nota2 = document.querySelector("input[name='nota2']").value;
+                const nome = document.getElementById("nome").value;
+                const matricula = document.getElementById("matricula").value;
+                const nota1 = parseFloat(document.getElementById("nota1").value);
+                const nota2 = parseFloat(document.getElementById("nota2").value);
 
-                var tabela = document.getElementById("Alunos");
-                var linha = tabela.insertRow();
-                var colunaNome = linha.insertCell(0);
-                var colunaMatricula = linha.insertCell(1);
-                var colunaNota1 = linha.insertCell(2);
-                var colunaNota2 = linha.insertCell(3);
+                const tabela = document.getElementById("Alunos");
+                const linha = tabela.insertRow();
+                const colunaNome = linha.insertCell(0);
+                const colunaMatricula = linha.insertCell(1);
+                const colunaNota1 = linha.insertCell(2);
+                const colunaNota2 = linha.insertCell(3);
 
                 colunaNome.innerHTML = nome;
                 colunaMatricula.innerHTML = matricula;
                 colunaNota1.innerHTML = nota1;
                 colunaNota2.innerHTML = nota2;
+
+                document.getElementById('nome').value = '';
+                document.getElementById('matricula').value = '';
+                document.getElementById('nota1').value = '';
+                document.getElementById('nota2').value = '';
             });
         </script>
     </body>
