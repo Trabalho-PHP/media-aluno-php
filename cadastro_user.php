@@ -3,13 +3,14 @@ include 'conexao_login.php';
 session_start();
 
 if(isset($_POST["nome"]) && isset($_POST["email"]) && isset($_POST["senha"])) {
-    $nome = $mysqli->real_escape_string($_POST["nome"]);
-    $email = $mysqli->real_escape_string($_POST["email"]);
-    $senha = $mysqli->real_escape_string($_POST["senha"]);
 
     if(empty($nome) || empty($email) || empty($senha)) {
         echo "Todos os campos devem ser preenchidos.";
     }else{
+        $nome = $mysqli->real_escape_string($_POST["nome"]);
+        $email = $mysqli->real_escape_string($_POST["email"]);
+        $senha = $mysqli->real_escape_string($_POST["senha"]);
+
         // Evitar injeção de SQL usando prepared statement
         $stmt = $mysqli->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $nome, $email, $senha);

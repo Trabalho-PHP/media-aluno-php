@@ -58,7 +58,6 @@ if(isset($_POST["email"]) || isset($_POST["senha"])) {
             <label for="senha">Senha:</label>
             <input type="password" name="senha"><br><br>
             <button type="submit">Entrar</button>
-
         </form>
     <p>Ainda não possui uma conta?</p>
     <a href="cadastro_user.php">Cadastre-se!</a>
