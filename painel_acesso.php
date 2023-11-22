@@ -22,7 +22,39 @@
     }else{
         echo "Preencha todos os campos.";
     }
+    
+
+    //busca de aluno (testeeeeeeee)
+    $conn = new mysqli("localhost", "root", "", "login");
+    if(isset($_POST["nome"])) {
+        if(empty($_POST["nome"])) {
+            echo "Atenção: Insira o nome do aluno que deseja buscar!";
+        }
+    }else { 
+
+        $nome = $mysqli->real_escape_string($_POST["nome"]);
+        $sql_code = "SELECT * FROM alunos WHERE nome = '$nome'";
+        $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->connect_error);
+
+        $quantidade = $sql_query->num_rows;
+
+        if ($quantidade > 0) {
+            // Exibe as informações do aluno
+            while ($row = $result->fetch_assoc()) {
+                echo "Nome: " . $row["nome"] . "<br>";
+                echo "Matrícula: " . $row["matricula"] . "<br>";
+                echo "nota 1: " . $row["nota1"] . "<br>";
+                echo "nota 2: " . $row["nota2"] . "<br>";
+
+            }
+        }
+    }
     $mysqli->close();
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +96,12 @@
             <button type="submit">Cadastrar</button>
         </form>
         <h1>tabela de alunos cadastrados</h1> <!-- será gerada com JS -->
-
+        <h3>Buscar aluno</h3>
+        <form action="" method="post" id="busca">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" placeholder="nome do aluno" required><br><br>
+            <button type="submit">Pesquisar</button>
+        </form>
         <table id="Alunos">
             <thead>
                 <tr>
