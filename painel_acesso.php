@@ -1,4 +1,3 @@
-
 <?php
     session_start();
     include 'conexao_login.php';
@@ -24,7 +23,7 @@
     }
     
 
-    //busca de aluno (testeeeeeeee)
+    //busca de aluno (teste)
     $conn = new mysqli("localhost", "root", "", "login");
     if(isset($_POST["nome"])) {
         if(empty($_POST["nome"])) {
@@ -47,13 +46,12 @@
                 echo "nota 2: " . $row["nota2"] . "<br>";
 
             }
+        }else{
+            echo "nenhum aluno encontrado";
+
         }
     }
     $mysqli->close();
-
-
-
-
 
 ?>
 
@@ -63,27 +61,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">          
+    <link rel="stylesheet" href="estilo_tabela.css">
     <title>Área de acesso</title>
 </head>
 <body>
     <h3>Bem vindo, <?php echo isset($_SESSION["name"]) ? $_SESSION["name"] : "Usuário"; ?></h3> <!-- parte bonitinha de boas vindas no topo -->
-    
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilo_tabela.css">
-    <title>Cadastro de Aluno</title>
-    </head>
-    <body>
-
-        <h1>Cadastro de Aluno</h1>
+    <h1>Cadastro de Aluno</h1>
         <form action="" method="post" id="cadastroaluno">
             <label for="nome">Nome:</label>
             <input type="text" name="nome" required><br><br>
@@ -139,4 +122,3 @@
         </script>
     </body>
 </html>
-
