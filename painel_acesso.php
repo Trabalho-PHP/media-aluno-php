@@ -1,4 +1,5 @@
 <?php
+/*
     session_start();
     include 'conexao_login.php';
     if(isset($_POST["nome"]) && isset($_POST["matricula"]) && isset($_POST["nota1"]) && isset($_POST["nota2"])) {
@@ -52,7 +53,7 @@
         }
     }
     $mysqli->close();
-
+*/
 ?>
 
 <!DOCTYPE html>
@@ -62,28 +63,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">          
     <link rel="stylesheet" href="estilo_tabela.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>Área de acesso</title>
 </head>
 <body>
-    <h3>Bem vindo, <?php echo isset($_SESSION["name"]) ? $_SESSION["name"] : "Usuário"; ?></h3> <!-- parte bonitinha de boas vindas no topo -->
-    <h1>Cadastro de Aluno</h1>
-        <form action="" method="post" id="cadastroaluno">
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" required><br><br>
-            <label for="matricula">Matrícula:</label>
-            <input type="text" name="matricula" required><br><br>
-            <label for="nota1">Nota 1:</label>
-            <input type="number" name="nota1" step="0.1" required><br><br>
-            <label for="nota2">Nota 2:</label>
-            <input type="number" name="nota2" step="0.1" required><br><br>
-            <button type="submit">Cadastrar</button>
-        </form>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+    <!----------------------- Login Container -------------------------->
+
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+
+        <h1>Bem vindo, <?php echo isset($_SESSION["name"]) ? $_SESSION["name"] : "Usuário"; ?></h1> <!-- parte bonitinha de boas vindas no topo -->
+        <h3>Cadastro de Aluno</h3>
+        <div class="row align-items-center">
+            <form id="cadastroaluno" action="" method="post">
+                <div class="input-group mb-2">
+                    <input for="nome" type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Nome do aluno" required>
+                </div>
+                <div class="input-group mb-2">
+                    <input for="matricula" type="text" class="form-control form-control-lg bg-light fs-6" placeholder="matrícula do aluno" required>
+                </div>
+                <div class="input-group mb-2">
+                    <input for="nota1" type="number" step="0.1" class="form-control form-control-lg bg-light fs-6" placeholder="primeira nota" required>
+                </div>
+                <div class="input-group mb-2">
+                    <input for="nota2" type="number" step="0.1" class="form-control form-control-lg bg-light fs-6" placeholder="segunda nota" required>
+                </div>
+                <br>
+                <div class="input-group mb-2">
+                    <button class="btn btn-sm btn-primary btn-block fs-6" type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    
+
         <h1>tabela de alunos cadastrados</h1> <!-- será gerada com JS -->
         <h3>Buscar aluno</h3>
         <form action="" method="post" id="busca">
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" placeholder="nome do aluno" required><br><br>
-            <button type="submit">Pesquisar</button>
+            <div class="input-group mb-2">
+                <input for="nome" type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Nome" required>
+            </div>
+            <div class="input-group mb-3">
+                <button class="btn btn-sm btn-primary btn-block fs-6" type="submit">Pesquisar</button>
+            </div>
         </form>
         <table id="Alunos">
             <thead>
@@ -98,6 +121,7 @@
                     <!-- As linhas da tabela serão adicionadas aqui dinamicamente com JavaScript -->
             </tbody>
         </table>
+    </div>
         <script>
             document.getElementById("cadastroaluno").addEventListener("submit", function(event) {
                 event.preventDefault(); 
