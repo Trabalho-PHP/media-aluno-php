@@ -1,34 +1,32 @@
 <?php
     include 'conexao_login.php';
     session_start();
-    
+   
     if(isset($_POST["nomeAluno"]) && isset($_POST["matricula"]) && isset($_POST["nota1"]) && isset($_POST["nota2"])) {
         $nomeAluno = $mysqli->real_escape_string($_POST["nomeAluno"]);
         $matricula = $mysqli->real_escape_string($_POST["matricula"]);
         $nota1 = $mysqli->real_escape_string($_POST["nota1"]);
         $nota2 = $mysqli->real_escape_string($_POST["nota2"]);
 
-        if(empty($nomeAluno) || empty($matricula) || empty($nota1) || empty($nota2)) {
+        if(is_null($nomeAluno) || is_null($matricula) || is_null($nota1) || is_null($nota2)) {
             echo "Todos os campos devem ser preenchidos.";
         }else{
-            echo"deu merda 2";
-            // Evitar injeção de SQL usando prepared statement
-            $stmt = $mysqli->prepare("INSERT INTO alunos (nome, matricula, nota1, nota2) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $nomeAluno, $matricula, $nota1, $nota2);
+
+            try {
+                // Evitar injeção de SQL usando prepared statement
+                $stmt = $mysqli->prepare("INSERT INTO alunos (nome, matricula, nota1, nota2) VALUES (?, ?, ?, ?)");
+                $stmt->bind_param("ssdd", $nomeAluno, $matricula, $nota1, $nota2);
+                $stmt->execute();
             
-            // Executar a declaração
-            if ($stmt->execute()) {
-                echo "Aluno cadastrado com sucesso!";
-                exit();
-            } else {
-                echo "Erro ao cadastrar aluno: " . $mysqli->error;
+                echo "<p class='alert alert-success mt-3 d-flex justify-content-center align-items-center' role='alert'>Usuário cadastrado com sucesso!</p>";
+            } catch (Exception $e) {
+                echo "<p class='alert alert-danger mt-3 d-flex justify-content-center align-items-center' role='alert'>Erro ao cadastrar o usuário: " . $e->getMessage() . "</p>";
             }
+            
+
                         
-            $stmt->close();
+           
         }
-        echo"Deu n";
-    }else{
-        echo "<br><br> é isso, deu merda memo";
     }
     
 
@@ -58,7 +56,7 @@
 
     //     }
     // }
-    $mysqli->close();
+    
 
 ?>
 
@@ -78,12 +76,12 @@
     
     <!-----login container----->
 
-    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+    <div class="row border rounded-5 p-3 my-4 bg-white shadow box-area">
 
         <h1>Bem vindo, <?php echo isset($_SESSION["name"]) ? $_SESSION["name"] : "Usuário"; ?></h1> <!-- parte bonitinha de boas vindas no topo -->
         <h3>Cadastro de Aluno</h3>
         <div class="row align-items-center">
-        <form id="cadastroaluno" action="" method="post">
+        <form id="cadastroaluno" method="post" novalidate>
             <div class="input-group mb-2">
                 <input type="text" name="nomeAluno" id="nome" class="form-control form-control-lg bg-light fs-6" placeholder="Nome do aluno" required>
             </div>
@@ -103,6 +101,14 @@
         </form>
         </div>
 
+        <?php
+
+$sql = "SELECT * FROM alunos ";
+
+$todos = mysqli_query($mysqli, $sql);
+
+
+?>
         <h1>Tabela de alunos cadastrados</h1> <!-- será gerada com JS -->
         <h3>Buscar aluno</h3>
         <form action="" method="post" id="busca">
@@ -124,13 +130,23 @@
             </thead>
             <tbody>
                     <!-- As linhas da tabela serão adicionadas aqui dinamicamente com JavaScript -->
+                    <?php while ($dados=mysqli_fetch_array($todos)) {?>
+                  <tr>
+                    <td scope="row"><?=$dados['nome'];?></td>
+                    <td><?= $dados['matricula'];?></td>
+                    <td><?= $dados['nota1'];?></td>
+                    <td><?=$dados['nota2'];?></td>
+                  </tr>
+          
+                  <?php } ?>
             </tbody>
         </table>
     </div>
-        <script>
+        <!-- <script>
             document.getElementById("cadastroaluno").addEventListener("submit", function(event) {
             // event.preventDefault(); 
             // Exemplo: Adicionando uma linha à tabela com dados do formulário
+            event.preventDefault()
             const nome = document.getElementById("nome").value;
             const matricula = document.getElementById("matricula").value;
             const nota1 = parseFloat(document.getElementById("nota1").value);
@@ -184,6 +200,6 @@
 
            // });
         });
-        </script>
+        </script> -->
     </body>
     </html>
