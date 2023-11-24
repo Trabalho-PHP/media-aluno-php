@@ -2,7 +2,7 @@
 
 body{
     font-family: 'Poppins', sans-serif;
-    background-image: url("livros.jpg");
+    background-image: url("./imagens/livros.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
