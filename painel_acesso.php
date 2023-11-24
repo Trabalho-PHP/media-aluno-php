@@ -1,5 +1,5 @@
 <?php
-/*
+
     session_start();
     include 'conexao_login.php';
     if(isset($_POST["nome"]) && isset($_POST["matricula"]) && isset($_POST["nota1"]) && isset($_POST["nota2"])) {
@@ -53,7 +53,7 @@
         }
     }
     $mysqli->close();
-*/
+
 ?>
 
 <!DOCTYPE html>
